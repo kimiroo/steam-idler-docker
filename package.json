@@ -2,7 +2,7 @@
     "name": "steam-idler",
     "version": "1.10",
     "description": "Headless cross-platform Steam game idler with multi account support! ",
-    "main": "idler.js",
+    "main": "app.js",
     "dependencies": {
         "@seald-io/nedb": "^4.0.4",
         "output-logger": "^2.3.7",
@@ -17,7 +17,7 @@
         "eslint-plugin-jsdoc": "^50.4.3"
     },
     "scripts": {
-        "start": "node idler.js"
+        "start": "node app.js"
     },
     "author": "3urobeat",
     "license": "GPL-3.0",

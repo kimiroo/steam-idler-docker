@@ -20,7 +20,7 @@ const fs     = require("fs");
 const https  = require("https");
 const logger = require("output-logger");
 
-const config = require("../config.json");
+const config = require("/config/config.json");
 
 // Export both values to make them accessable from bot.js
 module.exports.nextacc    = 0;
@@ -30,7 +30,7 @@ module.exports.relogQueue = []; // Queue tracking disconnected accounts to relog
 logger.options({
     msgstructure: `[${logger.Const.ANIMATION}] [${logger.Const.DATE} | ${logger.Const.TYPE}] ${logger.Const.MESSAGE}`,
     paramstructure: [logger.Const.TYPE, logger.Const.MESSAGE, "nodate", "remove", logger.Const.ANIMATION],
-    outputfile: "./output.txt",
+    outputfile: "/log/output.txt",
     exitmessage: "Goodbye!",
     printdebug: false
 });
@@ -47,8 +47,8 @@ function importLogininfo() {
         let logininfo = {};
 
         // Import data from accounts.txt
-        if (fs.existsSync("./accounts.txt")) {
-            let data = fs.readFileSync("./accounts.txt", "utf8").split("\n");
+        if (fs.existsSync("/config/accounts.txt")) {
+            let data = fs.readFileSync("/config/accounts.txt", "utf8").split("\n");
 
             if (data.length > 0 && data[0].startsWith("//Comment")) data = data.slice(1); // Remove comment from array
 
@@ -91,10 +91,10 @@ function importProxies() {
     return new Promise((resolve) => {
         let proxies = []; // When the file is just created there can't be proxies in it (this bot doesn't support magic)
 
-        if (!fs.existsSync("./proxies.txt")) {
+        if (!fs.existsSync("/config/proxies.txt")) {
             resolve([ null ]);
         } else { // File does seem to exist so now we can try and read it
-            proxies = fs.readFileSync("./proxies.txt", "utf8").split("\n");
+            proxies = fs.readFileSync("/config/proxies.txt", "utf8").split("\n");
             proxies = proxies.filter(str => str != ""); // Remove empty lines
 
             if (proxies.length > 0 && proxies[0].startsWith("//Comment")) proxies = proxies.slice(1); // Remove comment from array
@@ -122,7 +122,7 @@ function checkForUpdate() {
     let output = "";
 
     try {
-        const localVersion = require("../package.json").version;
+        const localVersion = require("./package.json").version;
 
         const req = https.get("https://raw.githubusercontent.com/3urobeat/steam-idler/main/package.json", function(res) {
             res.setEncoding("utf8");

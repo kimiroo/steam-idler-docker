@@ -24,7 +24,7 @@ const EResult   = SteamUser.EResult;
 
 const sessionHandler = require("./sessions/sessionHandler.js");
 const controller     = require("./controller.js");
-const config         = require("../config.json");
+const config         = require("/config/config.json");
 
 
 /**
@@ -291,7 +291,7 @@ Bot.prototype.logPlaytimeToFile = function() {
         // Append session summary to playtime.txt
         const str = `[${this.logOnOptions.accountName}] Session Summary (${formatDate(this.startedPlayingTimestamp)} - ${formatDate(Date.now())}) ~ Played for ${Math.trunc((Date.now() - this.startedPlayingTimestamp) / 1000)} seconds: ${util.inspect(this.playedAppIDs, false, 2, false)}`; // Inspect() formats array properly
 
-        fs.appendFileSync("./playtime.txt", str + "\n");
+        fs.appendFileSync("/log/playtime.txt", str + "\n");
     }
 
     // Reset startedPlayingTimestamp
